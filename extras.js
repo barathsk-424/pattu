@@ -207,8 +207,17 @@
     box.hidden = false;
     const pad = (n) => String(n).padStart(2, "0");
     const els = { d: $("tg-days"), h: $("tg-hours"), m: $("tg-mins"), s: $("tg-secs") };
+    const label = box.querySelector(".together-label");
+    let mode = null;
     function tick() {
-      let diff = Math.max(0, Math.floor((Date.now() - start.getTime()) / 1000));
+      // Future date → countdown to it; once reached → count up since it.
+      const ms = start.getTime() - Date.now();
+      const nextMode = ms > 0 ? "down" : "up";
+      if (nextMode !== mode) {
+        mode = nextMode;
+        label.textContent = mode === "down" ? "Countdown to your special day 🎂" : "Every second with you counts";
+      }
+      let diff = Math.floor(Math.abs(ms) / 1000);
       const d = Math.floor(diff / 86400); diff -= d * 86400;
       const h = Math.floor(diff / 3600); diff -= h * 3600;
       const m = Math.floor(diff / 60); const s = diff - m * 60;

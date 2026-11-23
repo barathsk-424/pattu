@@ -153,12 +153,12 @@ If the intro was already played in this browser session (`sessionStorage.giftInt
 | Property | Value |
 |---|---|
 | Shows when | `togetherSince` is set in config (hidden if `""`) |
-| Label | "EVERY SECOND WITH YOU COUNTS" — 0.72 rem, letter-spacing 0.22 em, `#C4B5E8` |
+| Label | Before the date: "COUNTDOWN TO YOUR SPECIAL DAY 🎂"; from the date on: "EVERY SECOND WITH YOU COUNTS" — 0.72 rem, letter-spacing 0.22 em, `#C4B5E8` |
 | Grid | 4 equal boxes, 8 px gap, max width 340 px. Margin: -6 px top, 24 px bottom |
 | Each box | Glass (`rgba(255,255,255,0.20→0.08)` gradient, 1 px white 22 % border, blur 14 px), radius 14 px, padding 10 px 4 px 8 px |
 | Number | Playfair Display 600, `clamp(1.1rem, 4.6vw, 1.45rem)`, white, fixed-width digits |
 | Unit | DAYS / HOURS / MINS / SECS — 0.64 rem, uppercase, `#C4B5E8` |
-| Logic | `now − togetherSince` → days (with comma, e.g. 1,013), hours/mins/secs as two digits. Refreshes every second |
+| Logic | Date is **26 Dec 2026, 00:00** (local time). Before it: counts **down** (`date − now`). From it on: counts **up** (`now − date`). Days with comma (e.g. 1,013), hours/mins/secs as two digits. Refreshes every second; the label switches automatically at midnight |
 
 ### 4.7 "Are You Ready? ❤️" button
 | Property | Value |
@@ -223,7 +223,7 @@ Main easing `cubic-bezier(0.22, 1, 0.36, 1)` · Bouncy easing `cubic-bezier(0.34
 recipientName: "Tharuma",
 musicUrl: "love.mp3?v=2",
 musicVolume: 0.3,
-togetherSince: "2024-02-14",   // ← set your real date ("" hides the counter)
+togetherSince: "2026-12-26",   // future = countdown, past = count-up ("" hides the counter)
 hiddenMessage: "Psst... You found the secret message! I have a special dinner reservation for us tonight at 7 PM. Dress up! 😉",
 konamiCodeResponse: "💖 UNLIMITED LOVE MODE ACTIVATED 💖"
 ```
@@ -254,7 +254,7 @@ konamiCodeResponse: "💖 UNLIMITED LOVE MODE ACTIVATED 💖"
 - [ ] Photo has the spinning gold-pink-violet ring and 💖 badge
 - [ ] "HAPPY BIRTHDAY" in gold spaced capitals, "Tharuma" in big shimmering script
 - [ ] Subtitle types itself after 0.8 s
-- [ ] Counter shows days / hours / mins / secs and ticks every second
+- [ ] Counter counts down to 26 Dec 2026 ("Countdown to your special day 🎂") and ticks every second
 - [ ] Button pulses, has a light sweep, starts music on tap
 - [ ] Stars twinkle, a shooting star crosses every few seconds, orbs and hearts float
 - [ ] Triple-tap name and long-press photo open the secret pop-up

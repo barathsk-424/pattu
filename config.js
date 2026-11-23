@@ -68,7 +68,8 @@ Yours,
 
   // ── NEW: "Together since" live counter on the hero screen ──
   // Set this to the day your story began (YYYY-MM-DD). Leave "" to hide the counter.
-  togetherSince: "2024-02-14", // ← CHANGE THIS to your real date
+  // Future date → counts DOWN to it; past date → counts UP since it.
+  togetherSince: "2026-12-26",
 
   // ── NEW: "reasons of love" flip cards (new chapter after Memories) ──
   reasons: [
