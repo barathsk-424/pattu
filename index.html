@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="A beautiful and interactive birthday surprise web experience tailored with love.">
+  <meta name="theme-color" content="#7C3AED">
+  <title>Happy Birthday! ❤️</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="glass.css">
+  <script src="candle-controller.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Global Music Toggle -->
+  <button id="global-music-btn" class="music-toggle muted" aria-label="Toggle Background Music">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6zm-2 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+    </svg>
+  </button>
+
+  <!-- Night sky: aurora + twinkling stars + shooting stars -->
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="glass-orbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+  <!-- Floating Hearts Background -->
+  <div id="bg-hearts-container" class="bg-hearts"></div>
+
+  <!-- Easter Egg Emoji Rain Container -->
+  <div id="emoji-rain-shower" class="emoji-rain-container"></div>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- GIFT BOX INTRO SCREEN                                    -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <div id="gift-intro-screen" aria-label="Birthday gift intro">
+
+    <!-- Floating sparkles layer -->
+    <div id="gift-sparkles-layer" aria-hidden="true"></div>
+
+    <!-- Gold rays background -->
+    <div class="gift-rays" aria-hidden="true"></div>
+
+    <p class="gift-intro-above">A Special Gift Awaits You ❤️</p>
+
+    <!-- The 3-D gift box -->
+    <div id="gift-intro-box" role="button" tabindex="0" aria-label="Tap to open gift">
+
+      <!-- Box scene wrapper (perspective container) -->
+      <div class="gib-scene">
+
+        <!-- Lid -->
+        <div class="gib-lid">
+          <!-- Ribbon cross on lid -->
+          <div class="gib-lid-ribbon-v"></div>
+          <div class="gib-lid-ribbon-h"></div>
+          <!-- Bow -->
+          <div class="gib-bow">
+            <div class="gib-bow-left"></div>
+            <div class="gib-bow-right"></div>
+            <div class="gib-bow-center"></div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="gib-body">
+          <div class="gib-body-ribbon-v"></div>
+          <div class="gib-body-ribbon-h"></div>
+          <!-- Golden glow inside that bursts open -->
+          <div class="gib-inner-glow" aria-hidden="true"></div>
+        </div>
+
+      </div><!-- /.gib-scene -->
+
+      <!-- Particle canvas (hearts + confetti) -->
+      <div id="gib-particles" aria-hidden="true"></div>
+
+    </div><!-- /#gift-intro-box -->
+
+    <p class="gift-intro-below">Tap the gift to open your surprise</p>
+
+  </div><!-- /#gift-intro-screen -->
+
+  <!-- Loader -->
+  <div id="loader-screen">
+    <div class="loader-heart">❤️</div>
+    <h1 class="loader-text">Loading Love...</h1>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <main id="app-container">
+
+    <!-- 1 · HERO -->
+    <section id="hero-section" class="story-section" aria-label="Welcome">
+      <div class="premium-card">
+        <div id="hero-image-wrapper-click" class="hero-image-wrapper" title="Hold me for a secret!">
+          <img src="assets/hero.jpg" alt="Birthday Star" class="hero-image">
+        </div>
+        <h1 id="hero-title-click" class="hero-title">
+          <span class="hero-eyebrow">Happy Birthday</span>
+          <span id="hero-name" class="hero-name shimmer-text">My Love</span>
+        </h1>
+        <div id="hero-subtitle" class="typewriter-text"></div>
+        <div id="together-box" class="together-box" hidden>
+          <p class="together-label">Every second with you counts</p>
+          <div class="together-grid">
+            <div class="together-cell"><span id="tg-days">0</span><small>days</small></div>
+            <div class="together-cell"><span id="tg-hours">00</span><small>hours</small></div>
+            <div class="together-cell"><span id="tg-mins">00</span><small>mins</small></div>
+            <div class="together-cell"><span id="tg-secs">00</span><small>secs</small></div>
+          </div>
+        </div>
+        <button id="hero-ready-btn" class="btn-primary btn-shine pulse-heartbeat">Are You Ready? ❤️</button>
+        <button id="fs-chip" class="fs-chip" type="button" hidden>⛶ Fullscreen for the best experience</button>
+      </div>
+    </section>
+
+    <!-- 2 · BALLOONS POP -->
+    <section id="balloons-section" class="story-section" aria-label="Pop the Balloons">
+      <div id="balloon-canvas" class="balloon-canvas"></div>
+      <div class="premium-card" style="z-index:10; margin-top:auto; margin-bottom:18px;">
+        <h2 class="section-title">Pop the Balloons! 🎈</h2>
+        <p class="section-subtitle">Tap the floating balloons to unlock sweet memories.</p>
+        <div class="pop-counter">
+          Popped: <span id="balloons-popped-count">0</span> / <span id="total-balloons-count">8</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · CAKE & CANDLES -->
+    <section id="cake-section" class="story-section" aria-label="Blow Out Candles">
+      <div class="premium-card">
+        <h2 class="section-title">Make a Wish 🎂</h2>
+        <p class="section-subtitle" id="cake-message">Blow the candles to make a wish!</p>
+
+        <div class="cake-container">
+          <div class="cake">
+            <!-- Bottom layer -->
+            <div class="cake-layer-bottom"></div>
+            <!-- Top layer -->
+            <div class="cake-layer-top"></div>
+            <!-- Frosting & drips -->
+            <div class="cake-creams">
+              <div class="cake-drip"></div>
+              <div class="cake-drip"></div>
+              <div class="cake-drip"></div>
+              <div class="cake-drip"></div>
+              <div class="cake-drip"></div>
+              <div class="berry berry-1"></div>
+              <div class="berry berry-2"></div>
+              <div class="berry berry-3"></div>
+            </div>
+            <!-- Candles -->
+            <div class="candle-wrapper">
+              <div class="candle">
+                <div class="flame"></div>
+              </div>
+              <div class="candle">
+                <div class="flame"></div>
+              </div>
+              <div class="candle">
+                <div class="flame"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="blow-control-panel">
+          <button id="candle-blow-btn" class="btn-blow">Blow Out Candles 💨</button>
+          <div id="mic-status-indicator" class="mic-indicator">Detecting microphone…</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · GIFT BOX -->
+    <section id="gift-section" class="story-section" aria-label="Open Gift">
+      <div class="premium-card">
+        <h2 class="section-title">A Gift for You 🎁</h2>
+        <p class="section-subtitle" id="gift-instruction">Tap the gift box to open</p>
+
+        <div id="clickable-gift-box" class="gift-box-wrapper">
+          <div class="gift-reveal-card">
+            <img src="assets/hero.jpg" alt="A lovely clue" class="gift-reveal-img">
+          </div>
+          <div class="gift-box">
+            <div class="gift-lid">
+              <div class="gift-lid-ribbon"></div>
+              <div class="gift-lid-bow"></div>
+            </div>
+            <div class="gift-body">
+              <div class="gift-body-ribbon-v"></div>
+              <div class="gift-body-ribbon-h"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-hint">What could be inside?</div>
+      </div>
+    </section>
+
+    <!-- 5 · MEMORIES SLIDESHOW -->
+    <section id="memories-section" class="story-section" aria-label="Memories">
+      <div class="premium-card">
+        <h2 class="section-title">Our Story 📸</h2>
+        <p class="section-subtitle">A walk down memory lane, through our beautiful journey.</p>
+
+        <div class="slideshow-container polaroid">
+          <div id="slide-counter" class="slide-counter">1 / 1</div>
+          <div id="slides-wrapper" style="width:100%;height:100%;position:relative;"></div>
+        </div>
+
+        <div class="slideshow-nav">
+          <button id="prev-slide-btn" class="nav-arrow" aria-label="Previous">◀</button>
+          <div id="heart-dots-container" class="heart-dots"></div>
+          <button id="next-slide-btn" class="nav-arrow" aria-label="Next">▶</button>
+        </div>
+
+        <button id="memories-next-btn" class="btn-primary btn-shine" style="margin-top:22px;">One More Thing…
+          💞</button>
+      </div>
+    </section>
+
+    <!-- 6 · reasons of love (new) -->
+    <section id="reasons-section" class="story-section" aria-label="reasons of love">
+      <div class="premium-card premium-card--wide">
+        <h2 class="section-title">reasons of love 💞</h2>
+        <p class="section-subtitle">Tap every card to discover what my heart wants to say.</p>
+        <div id="reasons-grid" class="reasons-grid"></div>
+        <div class="reasons-progress" aria-live="polite">
+          <div class="reasons-meter">
+            <div id="reasons-meter-fill"></div>
+          </div>
+          <span><b id="reasons-found">0</b> / <b id="reasons-total">0</b> discovered</span>
+        </div>
+        <button id="reasons-next-btn" class="btn-primary btn-shine is-hidden">Play a Little Quiz 💡</button>
+      </div>
+    </section>
+
+    <!-- 7 · LOVE QUIZ (new) -->
+    <section id="quiz-section" class="story-section" aria-label="Love quiz">
+      <div class="premium-card">
+        <h2 class="section-title">The Love Quiz 💡</h2>
+        <p class="section-subtitle">How well do you know us? No pressure… 😏</p>
+        <div id="quiz-progress" class="quiz-progress" aria-hidden="true"></div>
+        <div id="quiz-body" style="width:100%" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- 8 · DEDICATED TO YOU (new) -->
+    <section id="dedication-section" class="story-section" aria-label="Song dedication">
+      <div class="premium-card">
+        <h2 class="section-title">Dedicated to You 🎧</h2>
+        <p class="section-subtitle">Every song I love sounds a little like you.</p>
+
+        <div class="vinyl-stage">
+          <div id="vinyl" class="vinyl">
+            <div class="vinyl-label"><img src="assets/hero.svg" alt=""></div>
+          </div>
+          <div id="tonearm" class="tonearm" aria-hidden="true"></div>
+        </div>
+
+        <div class="now-playing">
+          <span class="np-tag">Now dedicating to <b id="ded-name"></b></span>
+          <p id="ded-title" class="np-title"></p>
+          <p id="ded-artist" class="np-artist"></p>
+        </div>
+
+        <div id="ded-eq" class="ded-eq" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+
+        <div class="ded-progress">
+          <span id="ded-cur">0:00</span>
+          <div id="ded-bar" class="ded-bar" role="slider" aria-label="Song position" tabindex="0">
+            <div id="ded-fill"></div>
+          </div>
+          <span id="ded-dur">0:00</span>
+        </div>
+
+        <button id="ded-play" class="ded-play" type="button" aria-label="Play the dedication">
+          <span class="ded-icon">▶</span>
+        </button>
+
+        <div id="ded-lines" class="ded-lines" aria-live="polite"></div>
+
+        <button id="ded-next-btn" class="btn-primary btn-shine">Read My Letter ✉️</button>
+      </div>
+    </section>
+
+    <!-- 9 · LOVE LETTER -->
+    <section id="letter-section" class="story-section" aria-label="Love Letter">
+      <div class="premium-card">
+        <h2 class="section-title">Just for You 💌</h2>
+
+        <div id="letter-paper-box" class="letter-paper">
+          <div id="letter-typing-text" class="letter-text"></div>
+          <span id="letter-cursor-blink" class="letter-cursor"></span>
+        </div>
+        <div id="letter-reveal-hint" class="letter-reveal-hint">Tap the letter to reveal everything!</div>
+
+        <div id="heart-fill-container" class="signature-fill-container" style="display:none;">
+          <p class="section-subtitle" style="margin-bottom:4px;">Fill my heart for the final surprise!</p>
+          <div id="heart-fill-btn" class="heart-fill-btn" aria-label="Fill heart">♥</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · GRAND FINALE -->
+    <section id="finale-section" class="story-section" aria-label="Grand Finale">
+      <div class="premium-card">
+        <h2 class="section-title">Happy Birthday! 🎉</h2>
+
+        <div class="video-container" id="finale-video-box">
+          <iframe id="finale-video" src="" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <h3 id="finale-title-text" class="finale-love-text">Love You Endlessly!</h3>
+        <p class="section-subtitle" style="color:var(--color-text-light);opacity:0.75;margin-top:12px;">
+          I hope this day brings you as much happiness as you bring into my life. Let's make today unforgettable.
+        </p>
+
+        <div class="finale-extra hug-wrap">
+          <p class="finale-extra-title">Send me a virtual hug 🤗</p>
+          <button id="hug-btn" class="hug-btn" type="button" aria-label="Press and hold to send a hug">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="hugGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#FFB8D0" />
+                  <stop offset="1" stop-color="#F5D58A" />
+                </linearGradient>
+              </defs>
+              <circle class="hug-track" cx="60" cy="60" r="54" />
+              <circle id="hug-ring" class="hug-ring" cx="60" cy="60" r="54" />
+            </svg>
+            <span class="hug-emoji">🤗</span>
+          </button>
+          <p class="hug-label">Press &amp; hold</p>
+          <p id="hug-count" class="hug-count"></p>
+        </div>
+
+        <div class="finale-extra">
+          <p class="finale-extra-title">One last surprise ✨</p>
+          <div class="scratch-wrap">
+            <div id="scratch-reveal" class="scratch-reveal"></div>
+            <canvas id="scratch-canvas" class="scratch-canvas" aria-label="Scratch card: drag to reveal"></canvas>
+          </div>
+          <p id="scratch-hint" class="scratch-hint">Scratch the gold with your finger ☝️</p>
+        </div>
+
+        <form id="wish-form" class="wish-form" autocomplete="off">
+          <p class="finale-extra-title">Release a birthday wish 🏮</p>
+          <div class="wish-row">
+            <input id="wish-input" type="text" maxlength="70" placeholder="Write a wish for your new year…"
+              aria-label="Your birthday wish">
+            <button type="submit" class="wish-btn" aria-label="Release wish lantern">Release</button>
+          </div>
+          <p id="wish-count" class="wish-count"></p>
+        </form>
+
+        <button id="keepsake-btn" class="btn-primary btn-shine keepsake-btn" type="button">Save a Keepsake Card
+          📸</button>
+        <button id="replay-flow-btn" class="replay-btn">Replay Surprise ↻</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating multilingual "I love you" layer (finale) -->
+  <div id="ily-layer" class="ily-layer" aria-hidden="true"></div>
+
+  <!-- Love note modal (replaces browser alerts) -->
+  <div id="love-note" class="love-note" role="dialog" aria-modal="true" aria-labelledby="love-note-title" hidden>
+    <div class="love-note-card">
+      <div id="love-note-icon" class="love-note-icon">💌</div>
+      <h3 id="love-note-title" class="love-note-title"></h3>
+      <p id="love-note-text" class="love-note-text"></p>
+      <button id="love-note-close" class="btn-primary">Aww, close ❤️</button>
+    </div>
+  </div>
+  <div id="love-toast" class="love-toast" role="status" aria-live="polite"></div>
+
+  <!-- Lightbox -->
+  <div id="gallery-lightbox" class="lightbox" aria-label="Image lightbox">
+    <span id="lightbox-close-btn" class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Enlarged Memory" class="lightbox-content">
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- App Scripts -->
+  <script src="config.js"></script>
+  <script src="extras.js"></script>
+  <script src="more.js"></script>
+  <script src="dedication.js"></script>
+  <script src="app.js"></script>
+
+</body>
+
+</html>

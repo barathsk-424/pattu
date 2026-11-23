@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- "Where it all began" — two coffee cups, steam curling into a heart -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2E1250"/>
+      <stop offset="0.6" stop-color="#8A3B7A"/>
+      <stop offset="1" stop-color="#F2A07B"/>
+    </linearGradient>
+    <linearGradient id="table" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5A2A3E"/>
+      <stop offset="1" stop-color="#2A1020"/>
+    </linearGradient>
+    <linearGradient id="cupA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFF6F0"/><stop offset="1" stop-color="#E9D3F5"/>
+    </linearGradient>
+    <linearGradient id="cupB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE0EA"/><stop offset="1" stop-color="#F5B8CC"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFE3A8" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#FFE3A8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <!-- window with string lights -->
+  <rect x="90" y="60" width="620" height="300" rx="20" fill="#1C0B33" opacity="0.55"/>
+  <line x1="400" y1="60" x2="400" y2="360" stroke="#5A2A6E" stroke-width="6"/>
+  <path d="M90 90 Q250 150 400 95 Q560 150 710 90" stroke="#F5D58A" stroke-width="2" fill="none"/>
+  <g fill="#FFE3A8">
+    <circle cx="140" cy="108" r="6"/><circle cx="200" cy="124" r="6"/><circle cx="260" cy="128" r="6"/>
+    <circle cx="320" cy="118" r="6"/><circle cx="480" cy="118" r="6"/><circle cx="540" cy="128" r="6"/>
+    <circle cx="600" cy="124" r="6"/><circle cx="660" cy="108" r="6"/>
+  </g>
+  <circle cx="200" cy="124" r="22" fill="url(#lamp)"/><circle cx="540" cy="128" r="22" fill="url(#lamp)"/>
+  <g fill="#FFF" opacity="0.8">
+    <circle cx="160" cy="220" r="2"/><circle cx="300" cy="190" r="1.6"/><circle cx="520" cy="230" r="2"/><circle cx="640" cy="200" r="1.5"/>
+  </g>
+  <circle cx="610" cy="250" r="34" fill="#FFF3D6" opacity="0.9"/>
+  <!-- table -->
+  <rect x="0" y="430" width="800" height="170" fill="url(#table)"/>
+  <rect x="0" y="425" width="800" height="10" fill="#7A3A55"/>
+  <!-- cup A -->
+  <ellipse cx="300" cy="500" rx="95" ry="18" fill="#1A0812" opacity="0.5"/>
+  <path d="M230 390 L370 390 L355 495 Q300 510 245 495Z" fill="url(#cupA)"/>
+  <path d="M368 410 Q410 412 405 445 Q400 475 358 470" stroke="#E9D3F5" stroke-width="14" fill="none"/>
+  <ellipse cx="300" cy="390" rx="70" ry="12" fill="#6B3A2A"/>
+  <path d="M285 440 C270 428 273 414 285 421 C297 414 300 428 285 440Z" fill="#FF8FB1"/>
+  <!-- cup B -->
+  <ellipse cx="520" cy="500" rx="85" ry="16" fill="#1A0812" opacity="0.5"/>
+  <path d="M455 400 L585 400 L572 495 Q520 508 468 495Z" fill="url(#cupB)"/>
+  <path d="M458 420 Q420 422 424 452 Q428 480 466 474" stroke="#F5B8CC" stroke-width="13" fill="none"/>
+  <ellipse cx="520" cy="400" rx="65" ry="11" fill="#6B3A2A"/>
+  <!-- steam forming a heart -->
+  <path d="M300 378 C300 330 340 320 360 300 C390 270 420 300 410 330" stroke="#FFF" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.75"/>
+  <path d="M520 388 C520 340 480 330 460 300 C430 270 400 300 410 330" stroke="#FFF" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.75"/>
+  <path d="M410 300 C385 280 390 255 410 268 C430 255 435 280 410 300Z" fill="#FF6F9C"/>
+</svg>

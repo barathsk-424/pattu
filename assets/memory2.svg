@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- "Our little adventures" — sky lanterns over a calm lake -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0630"/>
+      <stop offset="0.7" stop-color="#3B1670"/>
+      <stop offset="1" stop-color="#8A3B8F"/>
+    </linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4A1C78"/>
+      <stop offset="1" stop-color="#120624"/>
+    </linearGradient>
+    <radialGradient id="lantern" cx="0.5" cy="0.6" r="0.6">
+      <stop offset="0" stop-color="#FFF4C2"/>
+      <stop offset="0.5" stop-color="#FFB347"/>
+      <stop offset="1" stop-color="#E8590C"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFB347" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#FFB347" stop-opacity="0"/>
+    </radialGradient>
+    <g id="L">
+      <circle r="40" fill="url(#glow)"/>
+      <path d="M-14 -18 Q0 -24 14 -18 L12 16 Q0 20 -12 16Z" fill="url(#lantern)"/>
+      <rect x="-6" y="16" width="12" height="4" rx="2" fill="#7A2E0A"/>
+    </g>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <g fill="#FFF" opacity="0.85">
+    <circle cx="60" cy="50" r="1.6"/><circle cx="180" cy="90" r="1.2"/><circle cx="330" cy="40" r="1.5"/>
+    <circle cx="470" cy="80" r="1.2"/><circle cx="620" cy="50" r="1.8"/><circle cx="740" cy="110" r="1.3"/>
+    <circle cx="100" cy="170" r="1"/><circle cx="700" cy="200" r="1"/>
+  </g>
+  <!-- mountains -->
+  <path d="M0 380 L120 260 L210 330 L330 220 L460 340 L560 270 L680 350 L800 280 L800 400 L0 400Z" fill="#2A0F4A"/>
+  <path d="M0 400 L160 320 L300 380 L430 310 L600 390 L800 330 L800 410 L0 410Z" fill="#1C0A36"/>
+  <!-- lake -->
+  <rect x="0" y="405" width="800" height="195" fill="url(#lake)"/>
+  <!-- lanterns -->
+  <use href="#L" transform="translate(150 230) scale(1.1)"/>
+  <use href="#L" transform="translate(280 150) scale(1.4)"/>
+  <use href="#L" transform="translate(420 250) scale(1.2)"/>
+  <use href="#L" transform="translate(520 120) scale(0.9)"/>
+  <use href="#L" transform="translate(640 210) scale(1.3)"/>
+  <use href="#L" transform="translate(360 80) scale(0.7)"/>
+  <use href="#L" transform="translate(720 90) scale(0.6)"/>
+  <use href="#L" transform="translate(80 120) scale(0.6)"/>
+  <!-- reflections -->
+  <g opacity="0.35">
+    <ellipse cx="150" cy="470" rx="10" ry="28" fill="#FFB347"/>
+    <ellipse cx="280" cy="510" rx="12" ry="34" fill="#FFB347"/>
+    <ellipse cx="420" cy="460" rx="10" ry="26" fill="#FFB347"/>
+    <ellipse cx="640" cy="490" rx="12" ry="30" fill="#FFB347"/>
+  </g>
+  <g stroke="#B28AE0" stroke-width="2" opacity="0.35">
+    <line x1="80" y1="440" x2="220" y2="440"/><line x1="350" y1="480" x2="520" y2="480"/>
+    <line x1="560" y1="530" x2="720" y2="530"/><line x1="160" y1="560" x2="300" y2="560"/>
+  </g>
+  <!-- small boat with two figures -->
+  <path d="M330 455 Q400 480 470 455 L455 470 Q400 485 345 470Z" fill="#0E0520"/>
+  <circle cx="385" cy="436" r="9" fill="#0E0520"/><path d="M375 456 Q377 444 385 444 Q394 444 396 456Z" fill="#0E0520"/>
+  <circle cx="412" cy="438" r="8.5" fill="#0E0520"/><path d="M402 456 Q404 446 412 446 Q421 446 423 456Z" fill="#0E0520"/>
+  <path d="M398 420 C392 415 393 409 398 412 C403 409 404 415 398 420Z" fill="#FF8FB1"/>
+</svg>
