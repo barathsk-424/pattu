@@ -7,7 +7,7 @@ const CONFIG = {
 
   // Background Music
   // You can replace this link with any direct mp3 link (e.g. from Google Drive, Dropbox, or a public CDN)
-  musicUrl: "love.mp3?v=2",
+  musicUrl: "love.mp3?v=3",
   musicVolume: 0.3,
 
   // Balloons Game Settings

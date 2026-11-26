@@ -221,7 +221,7 @@ Main easing `cubic-bezier(0.22, 1, 0.36, 1)` · Bouncy easing `cubic-bezier(0.34
 ## 7. Settings used (from `config.js`)
 ```js
 recipientName: "Tharuma",
-musicUrl: "love.mp3?v=2",
+musicUrl: "love.mp3?v=3",
 musicVolume: 0.3,
 togetherSince: "2026-12-26",   // future = countdown, past = count-up ("" hides the counter)
 hiddenMessage: "Psst... You found the secret message! I have a special dinner reservation for us tonight at 7 PM. Dress up! 😉",
