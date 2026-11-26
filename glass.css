@@ -542,3 +542,44 @@
 
 /* Never squash card contents (fixes clipped buttons in the scrolling finale card) */
 .premium-card > * { flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PHONE PERFORMANCE MODE
+   Phones choke on live backdrop blur over an animated background,
+   so on touch / small screens: no blur, static background glows,
+   and no per-frame repainting text effects. Loaded last on purpose.
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px), (pointer: coarse) {
+  :root {
+    --glass-blur: none;
+    --glass-blur-sm: none;
+  }
+  *, *::before, *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .premium-card,
+  .story-section.active .premium-card,
+  #finale-section .premium-card {
+    background: linear-gradient(160deg, rgba(44, 16, 92, 0.96) 0%, rgba(22, 7, 52, 0.97) 100%) !important;
+  }
+  .lightbox { background: rgba(8, 4, 20, 0.94) !important; }
+
+  /* background glows stay, but stop moving (each one is a huge layer) */
+  .glass-orbs i,
+  .aurora span {
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  /* gradient-text shimmer + drop-shadow repaint the text every frame */
+  .section-title,
+  .shimmer-text,
+  .finale-love-text {
+    animation: none !important;
+    filter: none !important;
+  }
+  .premium-card::after { display: none !important; }
+
+
+}

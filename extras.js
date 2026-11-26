@@ -13,6 +13,7 @@
 
   const $ = (id) => document.getElementById(id);
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isPhone = window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
   const finePointer = window.matchMedia("(pointer: fine)").matches;
   const fireConfetti = (opts) => { if (typeof confetti === "function") confetti(opts); };
   const PALETTE = ["#7C3AED", "#A67FE8", "#C9B0F5", "#C8A84B", "#F5D58A", "#E4D4FF", "#C084FC", "#FF8FB1"];
@@ -86,12 +87,12 @@
     let w = 0, h = 0, stars = [], shooting = null, nextShoot = 0;
 
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const dpr = isPhone ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       w = window.innerWidth; h = window.innerHeight;
       canvas.width = w * dpr; canvas.height = h * dpr;
       canvas.style.width = w + "px"; canvas.style.height = h + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(170, Math.round((w * h) / 8000));
+      const count = isPhone ? Math.min(60, Math.round((w * h) / 12000)) : Math.min(170, Math.round((w * h) / 8000));
       stars = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
@@ -137,8 +138,11 @@
       }
     }
 
+    // phones: ~30 fps is plenty for twinkling stars and halves the work
+    const frameGap = isPhone ? 32 : 0;
+    let lastDraw = -Infinity;
     function loop(t) {
-      if (!document.hidden) draw(t);
+      if (!document.hidden && t - lastDraw >= frameGap) { lastDraw = t; draw(t); }
       requestAnimationFrame(loop);
     }
     window.addEventListener("resize", resize);

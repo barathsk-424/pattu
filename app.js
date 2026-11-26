@@ -232,6 +232,7 @@
 
   // ─── 3. Floating Hearts Background ───
   const bgHeartsContainer = document.getElementById("bg-hearts-container");
+  const IS_PHONE = window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
   // Violet hearts appear 3× more than other symbols for a subtle romantic density
   const heartSymbols = [
     "💜", "💜", "💜",   // deep violet — most frequent
@@ -243,7 +244,8 @@
   ];
 
   function spawnFloatingHeart() {
-    if (document.querySelectorAll(".floating-heart").length > 26) return;
+    if (document.hidden) return;
+    if (document.querySelectorAll(".floating-heart").length > (IS_PHONE ? 10 : 26)) return;
     const el = document.createElement("div");
     el.className = "floating-heart";
     const symbol = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
@@ -259,7 +261,7 @@
     bgHeartsContainer.appendChild(el);
     el.addEventListener("animationend", () => el.remove());
   }
-  setInterval(spawnFloatingHeart, 900);
+  setInterval(spawnFloatingHeart, IS_PHONE ? 1800 : 900);
 
   // ─── 4. Section / State Machine ───
   const SECTIONS = ["hero", "balloons", "cake", "gift", "memories", "reasons", "quiz", "dedication", "letter", "finale"];
