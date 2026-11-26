@@ -118,7 +118,7 @@ Yours,
 
   // ── NEW: "Dedicated to You" chapter (song dedication) ──
   dedicationSong: {
-    title: "Our Song",              // ← the song's name
+    title: "Venilava Saral",        // ← the song's name
     artist: "Played with love, by sk", // ← artist, or a little note
     url: ""                          // optional separate mp3; "" = uses the background music
   },
