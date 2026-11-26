@@ -7,7 +7,7 @@ const CONFIG = {
 
   // Background Music
   // You can replace this link with any direct mp3 link (e.g. from Google Drive, Dropbox, or a public CDN)
-  musicUrl: "love.mp3?v=2",
+  musicUrl: "love.mp3?v=3",
   musicVolume: 0.3,
 
   // Balloons Game Settings
@@ -118,7 +118,7 @@ Yours,
 
   // ── NEW: "Dedicated to You" chapter (song dedication) ──
   dedicationSong: {
-    title: "Our Song",              // ← the song's name
+    title: "Venilava Saral",        // ← the song's name
     artist: "Played with love, by sk", // ← artist, or a little note
     url: ""                          // optional separate mp3; "" = uses the background music
   },
